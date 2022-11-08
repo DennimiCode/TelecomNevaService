@@ -1,0 +1,65 @@
+﻿<Page x:Class="TelecomNevaService.Desktop.Views.Pages.CrmPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      KeyDown="CrmPageOnKeyDown"
+      Title="CRM">
+
+    <Grid Background="#FFFFFF">
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Label 
+                Content="Идентификация пользователя"
+                HorizontalAlignment="Center"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Content="Телефон:"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+
+                
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Content="Фамилия:"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+
+                <dxe:TextEdit
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Name="ClientPhoneNumberTextEdit"
+                    Width="200"
+                    Height="30"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Left"
+                    Margin="0,0,0,5"
+                    MaskType="Simple"
+                    Mask="+7 (999) 000-00-00"/>
+
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Name="UserSurnameTextBox"
+                    IsEnabled="False"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

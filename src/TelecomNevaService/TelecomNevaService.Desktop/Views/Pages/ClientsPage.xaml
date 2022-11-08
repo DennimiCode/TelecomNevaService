@@ -1,0 +1,154 @@
+﻿<Page x:Class="TelecomNevaService.Desktop.Views.Pages.ClientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="clr-namespace:TelecomNevaService.Desktop.ViewModels"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Абоненты ТНС">
+    <Page.DataContext>
+        <vm:ClientsPageViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#FFFFFF">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="29" />
+            </Grid.RowDefinitions>
+
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Номер абонента"
+                        Width="*"
+                        IsReadOnly="True"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}" />
+
+                    <DataGridTextColumn
+                        Header="ФИО"
+                        Width="*"
+                        IsReadOnly="True"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}" />
+
+                    <DataGridTextColumn
+                        Header="Номер договора"
+                        Width="*"
+                        IsReadOnly="True"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}" />
+
+                    <DataGridTextColumn
+                        Header="Лицевой счет"
+                        Width="*"
+                        IsReadOnly="True"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}" />
+
+                    <DataGridTextColumn
+                        Header="Услуги"
+                        Width="*"
+                        IsReadOnly="True"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal">
+                <RadioButton
+                    Name="ActiveClientRadioButton"
+                    GroupName="ClientContractStatus"
+                    Content="Активные"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center" />
+
+                <RadioButton
+                    Name="InactiveClientRadioButton"
+                    GroupName="ClientContractStatus"
+                    Content="Неактивные"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="50,0,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="LightGray">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Text="События"
+                    FontSize="24" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <RepeatButton Grid.Row="0"
+                              Name="MoveEventsUpButton"
+                              Content="∧"
+                              FontSize="26"
+                              FontWeight="Bold"
+                              Delay="0"
+                              Interval="1"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="Click">
+                            <behaviors:InvokeCommandAction
+                                Command="{Binding MoveEventsUpCommand}"
+                                CommandParameter="{Binding ElementName=EventsScrollViewer}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </RepeatButton>
+
+                <ScrollViewer Grid.Row="1"
+                              Name="EventsScrollViewer"
+                              VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel Name="EventsStackPanel">
+                    </StackPanel>
+                </ScrollViewer>
+
+                <RepeatButton Grid.Row="2"
+                              Name="MoveEventsDownButton"
+                              Content="∨"
+                              FontSize="26"
+                              FontWeight="Bold"
+                              Delay="0"
+                              Interval="1"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="Click">
+                            <behaviors:InvokeCommandAction
+                                Command="{Binding MoveEventsDownCommand}"
+                                CommandParameter="{Binding ElementName=EventsScrollViewer}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </RepeatButton>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

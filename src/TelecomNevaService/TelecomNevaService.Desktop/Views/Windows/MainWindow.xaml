@@ -1,0 +1,387 @@
+﻿<Window
+    x:Class="TelecomNevaService.Desktop.Views.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:vm="clr-namespace:TelecomNevaService.Desktop.ViewModels"
+    Title="ООО &quot;Телеком Нева Связь&quot;"
+    WindowStartupLocation="CenterScreen"
+    Height="720" Width="1280"
+    MinHeight="720" MinWidth="1280">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Image
+            Grid.Row="0"
+            Grid.Column="0"
+            Source="/Resources/Logo.jpg" />
+
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Label
+                Name="HeaderLabel"
+                Style="{StaticResource Header}"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" />
+
+            <ComboBox Name="UserComboBox"
+                      Width="350"
+                      Height="30"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Right"
+                      Margin="0,0,160,0"
+                      VerticalContentAlignment="Center"
+                      HorizontalContentAlignment="Left"
+                      ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="FullName">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectionChanged">
+                        <behaviors:InvokeCommandAction
+                            Command="{Binding UserComboBoxSelectionChangedCommand}"
+                            CommandParameter="{Binding SelectedUser}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </ComboBox>
+
+            <Image
+                Name="UserProfileImage"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Source="/Resources/UserProfiles/EmptyPofileImage.jpg" />
+        </Grid>
+
+        <Frame Grid.Row="1"
+               Grid.Column="1"
+               Name="MainFrame"
+               NavigationUIVisibility="Hidden"
+               Source="/Views/Pages/ClientsPage.xaml" />
+
+        <Grid Grid.Row="1"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition
+                    Height="0.2*"
+                    MinHeight="120" />
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{Binding ClientsSectionGridLength}" />
+                        <RowDefinition Height="{Binding EquipmentManagementSectionGridLength}" />
+                        <RowDefinition Height="{Binding AssetsSectionGridLength}" />
+                        <RowDefinition Height="{Binding BillingSectionGridLength}" />
+                        <RowDefinition Height="{Binding ClientsSupportSectionGridLength}" />
+                        <RowDefinition Height="{Binding CrmSectionGridLength}" />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="0"
+                            Margin="0,0,0,5">
+                        <Button Name="ClientsButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=ClientsButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/Clients.png" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Абоненты"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="1"
+                            Margin="0,0,0,5">
+                        <Button Name="EquipmentManagementButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=EquipmentManagementButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/EquipmentManagement.jpg" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Управление оборудованием"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="2"
+                            Margin="0,0,0,5">
+                        <Button Name="AssetsButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=AssetsButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/Assets.png" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Активы"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="3"
+                            Margin="0,0,0,5">
+                        <Button Name="BillingButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=BillingButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/Billing.jpg" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Биллинг"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="4"
+                            Margin="0,0,0,5">
+                        <Button Name="ClientsSupportButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=ClientsSupportButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/ClientsSupport.jpg" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Поддержка пользователей"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border BorderBrush="#4A67F7"
+                            Background="#4A67F7"
+                            BorderThickness="5"
+                            CornerRadius="10"
+                            Grid.Row="5"
+                            Margin="0,0,0,5">
+                        <Button Name="CrmButton"
+                                Width="150"
+                                Height="120"
+                                Background="#4A67F7"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding NavigationButtonClickCommand}"
+                                        CommandParameter="{Binding ElementName=CrmButton}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Source="/Resources/CRM.png" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="CRM"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+
+            <StackPanel Grid.Row="1"
+                        Margin="0,5,0,0">
+                <Border BorderBrush="#4A67F7"
+                        Background="#4A67F7"
+                        BorderThickness="5"
+                        CornerRadius="30"
+                        Width="55"
+                        Height="55"
+                        Margin="0,0,0,5">
+                    <Button Name="UserProfileButton"
+                            Background="#4A67F7"
+                            Width="50"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                        <TextBlock
+                            Text="Проф."
+                            FontSize="10"
+                            TextAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center" />
+                    </Button>
+                </Border>
+
+                <Border BorderBrush="#4A67F7"
+                        Background="#4A67F7"
+                        BorderThickness="5"
+                        CornerRadius="30"
+                        Width="55"
+                        Height="55"
+                        Margin="0,0,0,5">
+                    <Button Name="InfoButton"
+                            Background="#4A67F7"
+                            Width="30"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                        <TextBlock
+                            Text="?"
+                            TextAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center" />
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
